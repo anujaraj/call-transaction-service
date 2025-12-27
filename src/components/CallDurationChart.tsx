@@ -6,11 +6,13 @@ type Props = {
 };
 
 export default function CallDurationChart({ data }: Props) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     return (
         <div className={styles.card}>
             <h2 className={styles.heading}>Call Duration Analysis</h2>
             <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={data}>
+                <AreaChart data={data} margin={{ top: 10, right: isMobile ? 5 : 30, left: isMobile ? -20 : 0, bottom: 0 }}>
                     <defs>
                         <linearGradient id="colorDuration" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.8} />
@@ -21,12 +23,12 @@ export default function CallDurationChart({ data }: Props) {
                     <XAxis
                         dataKey="time"
                         stroke="#9ca3af"
-                        tick={{ fill: '#9ca3af', fontSize: 12 }}
+                        tick={{ fill: '#9ca3af', fontSize: isMobile ? 10 : 12 }}
                     />
                     <YAxis
                         stroke="#9ca3af"
-                        tick={{ fill: '#9ca3af', fontSize: 12 }}
-                        label={{ value: 'Minutes', angle: -90, position: 'insideLeft', fill: '#9ca3af' }}
+                        tick={{ fill: '#9ca3af', fontSize: isMobile ? 10 : 12 }}
+                        label={isMobile ? undefined : { value: 'Minutes', angle: -90, position: 'insideLeft', fill: '#9ca3af' }}
                     />
                     <Tooltip
                         contentStyle={{

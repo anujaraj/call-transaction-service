@@ -8,6 +8,7 @@ type Props = {
 const COLORS = ['#60a5fa', '#93c5fd', '#3b82f6', '#2563eb', '#1d4ed8', '#1e40af', '#86efac'];
 
 const RADIAN = Math.PI / 180;
+
 const renderCustomizedLabel = ({
     cx,
     cy,
@@ -17,6 +18,7 @@ const renderCustomizedLabel = ({
     percent,
     name,
 }: any) => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -30,7 +32,7 @@ const renderCustomizedLabel = ({
             fill="white"
             textAnchor={x > cx ? 'start' : 'end'}
             dominantBaseline="central"
-            fontSize={11}
+            fontSize={isMobile ? 8 : 11}
         >
             {`${name}`}
         </text>
@@ -38,6 +40,9 @@ const renderCustomizedLabel = ({
 };
 
 export default function SadPathChart({ data }: Props) {
+    // Detect mobile to reduce chart size
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     return (
         <div className={styles.card}>
             <h2 className={styles.heading}>Sad Path Analysis</h2>
@@ -46,11 +51,11 @@ export default function SadPathChart({ data }: Props) {
                     <Pie
                         data={data}
                         cx="50%"
-                        cy="50%"
+                        cy={isMobile ? "35%" : "40%"}
                         labelLine={false}
                         label={renderCustomizedLabel}
-                        outerRadius={120}
-                        innerRadius={60}
+                        outerRadius={isMobile ? 70 : 120}
+                        innerRadius={isMobile ? 35 : 60}
                         fill="#8884d8"
                         dataKey="value"
                         paddingAngle={2}
@@ -70,9 +75,17 @@ export default function SadPathChart({ data }: Props) {
                     />
                     <Legend
                         verticalAlign="bottom"
-                        height={36}
+                        height={60}
                         iconType="circle"
-                        wrapperStyle={{ fontSize: '12px', color: '#9ca3af' }}
+                        wrapperStyle={{
+                            fontSize: '10px',
+                            color: '#9ca3af',
+                            paddingTop: isMobile ? '5px' : '10px',
+                            lineHeight: '1.5',
+                            maxWidth: '100%',
+                            overflowWrap: 'break-word',
+                            wordWrap: 'break-word'
+                        }}
                     />
                 </PieChart>
             </ResponsiveContainer>

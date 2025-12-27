@@ -69,6 +69,7 @@ export default function Dashboard() {
                 {isEmailModalOpen && (
                     <EmailModal
                         onSubmit={handleEmailSubmit}
+                        onCancel={() => setIsEmailModalOpen(false)}
                     />
                 )}
 

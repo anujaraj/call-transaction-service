@@ -7,11 +7,13 @@ type Props = {
 };
 
 export default function AnalyticsCharts({ data }: Props) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     return (
         <div className={styles.card}>
             <h2 className={styles.heading}>Weekly Call Volume</h2>
             <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={data}>
+                <AreaChart data={data} margin={{ top: 10, right: isMobile ? 5 : 30, left: isMobile ? -20 : 0, bottom: 0 }}>
                     <defs>
                         <linearGradient id="colorCalls" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#4ade80" stopOpacity={0.8} />
@@ -19,8 +21,15 @@ export default function AnalyticsCharts({ data }: Props) {
                         </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                    <XAxis dataKey="day" stroke="#9ca3af" />
-                    <YAxis stroke="#9ca3af" />
+                    <XAxis
+                        dataKey="day"
+                        stroke="#9ca3af"
+                        tick={{ fontSize: isMobile ? 10 : 12 }}
+                    />
+                    <YAxis
+                        stroke="#9ca3af"
+                        tick={{ fontSize: isMobile ? 10 : 12 }}
+                    />
                     <Tooltip
                         contentStyle={{
                             backgroundColor: '#1f2937',

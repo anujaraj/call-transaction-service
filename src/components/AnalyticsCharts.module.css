@@ -4,6 +4,7 @@
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
 }
 
 .card:hover {
@@ -16,4 +17,15 @@
     font-size: 18px;
     font-weight: 600;
     color: var(--text);
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 16px;
+    }
+
+    .heading {
+        font-size: 16px;
+        margin: 0 0 12px 0;
+    }
 }

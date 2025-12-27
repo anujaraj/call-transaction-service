@@ -52,3 +52,32 @@ button {
 button:hover {
     opacity: 0.9;
 }
+
+/* Cancel button - secondary style */
+.cancelButton {
+    background: #374151 !important;
+    color: #e5e7eb !important;
+}
+
+.cancelButton:hover {
+    background: #4b5563 !important;
+}
+
+/* Actions container for buttons */
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.actions button {
+    flex: 1;
+    margin: 0;
+}
+
+/* Error message */
+.error {
+    color: #ef4444;
+    font-size: 13px;
+    margin: 0;
+}

@@ -1,7 +1,12 @@
 import { useState } from "react";
 import styles from "./Modal.module.css";
 
-export default function EmailModal({ onSubmit }: { onSubmit: (email: string) => void }) {
+type Props = {
+    onSubmit: (email: string) => void;
+    onCancel: () => void;
+};
+
+export default function EmailModal({ onSubmit, onCancel }: Props) {
 
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
@@ -24,6 +29,7 @@ export default function EmailModal({ onSubmit }: { onSubmit: (email: string) => 
                 {error && <p className={styles.error}>{error}</p>}
 
                 <div className={styles.actions}>
+                    <button onClick={onCancel} className={styles.cancelButton}>Cancel</button>
                     <button onClick={handleSubmit}>Continue</button>
                 </div>
             </div>
